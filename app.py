@@ -19,7 +19,8 @@ if not os.path.exists(SCREENSHOTS_DIR):
 def load_data():
     try:
         if os.path.exists(FILE_PATH):
-            df = pd.read_excel(FILE_PATH)
+            # Read Excel with string dtype for Trade ID to avoid type conflicts
+            df = pd.read_excel(FILE_PATH, dtype={'Trade ID': str})
             st.success(f"✅ Data loaded successfully from {FILE_PATH}")
             return df
         else:
@@ -282,9 +283,19 @@ if not data.empty:
                 else:
                     st.info("No screenshot uploaded for this trade")
     
-    # Display full dataframe
+    # Display full dataframe with error handling
     st.markdown("### 📊 Complete Trade Data")
-    st.dataframe(data, use_container_width=True)
+    try:
+        # Convert dataframe to string representation for display to avoid Arrow issues
+        display_data = data.copy()
+        # Ensure all columns are string type for display
+        for col in display_data.columns:
+            display_data[col] = display_data[col].astype(str)
+        st.dataframe(display_data, use_container_width=True)
+    except Exception as e:
+        st.error(f"Error displaying dataframe: {e}")
+        # Fallback: show as text
+        st.text("Data loaded but display error occurred. Use download button to view data.")
     
     # Add download button for Excel file
     if st.button("📥 Download Excel File"):

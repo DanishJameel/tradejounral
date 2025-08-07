@@ -1,9 +1,5 @@
 streamlit
 pandas
 openpyxl
-<<<<<<< HEAD
 Pillow
-=======
 requests
-pandas
->>>>>>> 53b293ce732958a307bc7ac605d643da28d56792
