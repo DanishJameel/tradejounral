@@ -1,0 +1,13 @@
+[server]
+# Enable file uploads
+enableXsrfProtection = false
+enableCORS = false
+
+[theme]
+primaryColor = "#FF6B6B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+
+[browser]
+gatherUsageStats = false 
